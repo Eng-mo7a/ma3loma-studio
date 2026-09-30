@@ -1,0 +1,8 @@
+# أسرار وبيانات محلية — ممنوع تطلع برّه الجهاز
+.env
+data/
+outputs/
+uploads/
+ledger.jsonl
+tools/first-call-output/
+node_modules/

@@ -1,0 +1,13 @@
+{
+  "name": "ma3loma-studio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Personal AI image and video studio on the Higgsfield API — one key, every model.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

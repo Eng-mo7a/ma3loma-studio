@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ma3loma Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="brand">
+      <span class="brand-mark">M</span>
+      <div><strong>Ma3loma Studio</strong><small>استوديو التوليد بتاعي</small></div>
+    </div>
+    <nav class="nav">
+      <a href="#create" data-view="create">ولّد</a>
+      <a href="#library" data-view="library">المكتبة</a>
+      <a href="#bill" data-view="bill">الفاتورة</a>
+      <a href="#settings" data-view="settings">الإعدادات</a>
+    </nav>
+    <div class="side-foot">
+      <div id="keyPill" class="pill">…</div>
+      <small class="muted">مفتاح واحد · كل الموديلات · بتدفع على كل توليد</small>
+      <small class="muted">معمول بإيد محمد — <a href="https://www.youtube.com/@ma3lomatech" target="_blank" rel="noopener">معلومة تك</a></small>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div id="noKey" class="banner hidden">مفيش مفتاح لسه — <a href="#settings">اربط مفتاح Higgsfield من الإعدادات</a> وبعدين ولّد.</div>
+
+    <section id="view-create" class="view">
+      <header class="view-head">
+        <h1>ولّد</h1>
+        <p>صورة أو فيديو بمفتاح واحد — والسعر مكتوب على الزرار قبل ما تدوس.</p>
+      </header>
+      <div class="card composer">
+        <div class="tabs" id="typeTabs">
+          <button type="button" data-type="image" class="active">صورة</button>
+          <button type="button" data-type="video">فيديو</button>
+        </div>
+        <div class="row">
+          <label class="field grow"><span>الموديل</span><select id="modelSelect"></select><small id="modelNote" class="muted"></small></label>
+          <label class="field"><span>المشروع</span><input id="projectInput" placeholder="general" maxlength="60"></label>
+        </div>
+        <div id="fields" class="fields"></div>
+        <div class="actions">
+          <button id="genBtn" type="button" class="btn primary" disabled>ولّد</button>
+          <span id="estInfo" class="muted"></span>
+        </div>
+      </div>
+      <div class="sub-head"><h2>آخر التوليدات</h2><a href="#library">المكتبة كلها ←</a></div>
+      <div id="recentGrid" class="grid"></div>
+    </section>
+
+    <section id="view-library" class="view hidden">
+      <header class="view-head">
+        <h1>المكتبة</h1>
+        <p>كل اللي اتولّد — ومتحفظ على جهازك في فولدر outputs (لينكات Higgsfield بتعيش ٧ أيام بس).</p>
+      </header>
+      <div class="filters">
+        <select id="libProject"><option value="">كل المشاريع</option></select>
+        <select id="libType"><option value="">صور وفيديو</option><option value="image">صور</option><option value="video">فيديو</option></select>
+      </div>
+      <div id="libGrid" class="grid"></div>
+    </section>
+
+    <section id="view-bill" class="view hidden">
+      <header class="view-head">
+        <h1>الفاتورة</h1>
+        <p>صرفت كام، على إيه، وفي أنهي مشروع.</p>
+      </header>
+      <div id="kpis" class="kpis"></div>
+      <div class="two">
+        <div class="card"><h3>لكل موديل</h3><table id="byModel" class="table"></table></div>
+        <div class="card"><h3>لكل مشروع</h3><table id="byProject" class="table"></table></div>
+      </div>
+      <div class="card"><h3>كل الطلبات</h3><div class="table-wrap"><table id="ledgerTable" class="table"></table></div></div>
+      <p class="muted small">التكلفة هنا = تقدير Higgsfield قبل التوليد (<code>/estimate</code>). الطلب اللي بيفشل أو الفلتر بيرفضه = $0.
+        الرقم الرسمي في <a href="https://console.higgsfield.ai" target="_blank" rel="noopener">Analytics في الكونسول</a>.</p>
+    </section>
+
+    <section id="view-settings" class="view hidden">
+      <header class="view-head">
+        <h1>الإعدادات</h1>
+        <p>المفتاح بيتحفظ في ملف <code>.env</code> على جهازك بس، ومش بيرجع للمتصفح أبداً.</p>
+      </header>
+      <div class="card form">
+        <h3>مفتاح Higgsfield API</h3>
+        <label class="field"><span>Key ID</span><input id="keyId" autocomplete="off" spellcheck="false" dir="ltr"></label>
+        <label class="field"><span>Key Secret</span><input id="keySecret" type="password" autocomplete="new-password" spellcheck="false" dir="ltr"></label>
+        <div class="actions">
+          <button id="saveKey" type="button" class="btn primary">احفظ المفتاح</button>
+          <button id="testKey" type="button" class="btn">اختبر الاتصال</button>
+          <span id="keyMsg" class="msg"></span>
+        </div>
+        <small class="muted">منين؟ console.higgsfield.ai ← API keys ← Create. «اختبر الاتصال» بيسأل عن سعر بس — مش بيصرف سنت.</small>
+      </div>
+      <div class="card form">
+        <h3>الأمان والصرف</h3>
+        <div class="row">
+          <label class="field"><span>حد الطلبات المتزامنة</span><input id="maxConc" type="number" min="1" max="50"></label>
+          <label class="field"><span>سقف الصرف اليومي ($)</span><input id="dailyCap" type="number" min="0.1" step="0.5"></label>
+        </div>
+        <div class="actions">
+          <button id="saveLimits" type="button" class="btn">احفظ</button>
+          <span id="limitsMsg" class="msg"></span>
+        </div>
+        <small class="muted">السيرفر بيرفض أي طلب يعدّي السقف — عشان محدش يصرف الرصيد بالغلط.</small>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/app.js"></script>
+</body>
+</html>

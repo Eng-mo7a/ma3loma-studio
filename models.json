@@ -1,0 +1,112 @@
+{
+  "source": "https://docs.higgsfield.ai/docs/llms.txt — schemas checked 2026-09-29",
+  "models": {
+    "soul-2": {
+      "label": "Soul 2",
+      "type": "image",
+      "mode": "نص ← صورة",
+      "endpoint": "/higgsfield-ai/soul/v2/standard",
+      "note": "موديل Higgsfield نفسه · أرخص حاجة للتجربة",
+      "fields": {
+        "prompt": { "kind": "text", "label": "الأمر", "required": true },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["1:1", "16:9", "9:16", "4:3", "3:4", "2:3", "3:2"], "default": "1:1" },
+        "resolution": { "kind": "select", "label": "الدقة", "options": ["720p", "1080p"], "default": "720p" },
+        "batch_size": { "kind": "select", "label": "عدد الصور", "options": [1, 4], "default": 1 },
+        "enhance_prompt": { "kind": "toggle", "label": "خلّي Higgsfield تحسّن الأمر", "default": false }
+      }
+    },
+    "marketing-studio-image": {
+      "label": "Marketing Studio Image",
+      "type": "image",
+      "mode": "نص + صور مرجعية ← صورة إعلان",
+      "endpoint": "/marketing-studio/image",
+      "note": "لصور الإعلانات · ارفع صورة المنتج كمرجع",
+      "fields": {
+        "prompt": { "kind": "text", "label": "الأمر", "required": true, "max": 5000 },
+        "image_urls": { "kind": "images", "label": "صور مرجعية (المنتج)", "max": 4 },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["auto", "1:1", "9:16", "16:9", "4:3", "3:4", "3:2", "2:3", "21:9"], "default": "auto", "optionLabels": { "auto": "تلقائي" } },
+        "resolution": { "kind": "select", "label": "الدقة", "options": ["1k", "2k", "4k"], "default": "1k" },
+        "quality": { "kind": "select", "label": "الجودة", "options": ["low", "medium", "high"], "default": "high", "optionLabels": { "low": "قليلة", "medium": "متوسطة", "high": "عالية" } }
+      }
+    },
+    "kling-3-std-t2v": {
+      "label": "Kling 3.0 Standard",
+      "type": "video",
+      "mode": "نص ← فيديو",
+      "endpoint": "/kling-video/v3.0/std/text-to-video",
+      "note": "من ٣ لـ ١٥ ثانية · بصوت أو من غير",
+      "fields": {
+        "prompt": { "kind": "text", "label": "الأمر", "required": true },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["16:9", "9:16", "1:1"], "default": "16:9" },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 3, "max": 15, "default": 5 },
+        "sound": { "kind": "select", "label": "الصوت", "options": ["on", "off"], "default": "on", "optionLabels": { "on": "شغال", "off": "مقفول" } }
+      }
+    },
+    "kling-3-std-i2v": {
+      "label": "Kling 3.0 Standard",
+      "type": "video",
+      "mode": "صورة ← فيديو",
+      "endpoint": "/kling-video/v3.0/std/image-to-video",
+      "note": "بيحرّك صورتك · من ٣ لـ ١٥ ثانية",
+      "fields": {
+        "image_url": { "kind": "image", "label": "صورة البداية", "required": true },
+        "prompt": { "kind": "text", "label": "الأمر (الحركة)" },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 3, "max": 15, "default": 5 },
+        "sound": { "kind": "select", "label": "الصوت", "options": ["on", "off"], "default": "on", "optionLabels": { "on": "شغال", "off": "مقفول" } }
+      }
+    },
+    "minimax-h3-t2v": {
+      "label": "MiniMax H3",
+      "type": "video",
+      "mode": "نص ← فيديو",
+      "endpoint": "/minimax/h3/text-to-video",
+      "note": "من ٥ لـ ١٥ ثانية · دقة 2K",
+      "fields": {
+        "prompt": { "kind": "text", "label": "الأمر", "required": true },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["auto", "16:9", "9:16", "1:1", "4:3", "3:4", "21:9", "adaptive"], "default": "auto", "optionLabels": { "auto": "تلقائي", "adaptive": "على حسب المحتوى" } },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 5, "max": 15, "default": 5 }
+      }
+    },
+    "minimax-h3-i2v": {
+      "label": "MiniMax H3",
+      "type": "video",
+      "mode": "صورة ← فيديو",
+      "endpoint": "/minimax/h3/image-to-video",
+      "note": "بيحرّك صورتك · من ٥ لـ ١٥ ثانية",
+      "fields": {
+        "image_url": { "kind": "image", "label": "صورة البداية", "required": true },
+        "prompt": { "kind": "text", "label": "الأمر (الحركة)", "required": true },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["auto", "16:9", "9:16", "1:1", "4:3", "3:4", "21:9", "adaptive"], "default": "auto", "optionLabels": { "auto": "تلقائي", "adaptive": "على حسب المحتوى" } },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 5, "max": 15, "default": 5 }
+      }
+    },
+    "seedance-2-5-t2v": {
+      "label": "Seedance 2.5",
+      "type": "video",
+      "mode": "نص ← فيديو",
+      "endpoint": "/bytedance/seedance-2.5/text-to-video",
+      "note": "لحد ٣٠ ثانية · الأغلى هنا — للقطات المهمة",
+      "fields": {
+        "prompt": { "kind": "text", "label": "الأمر", "required": true },
+        "aspect_ratio": { "kind": "select", "label": "الأبعاد", "options": ["16:9", "9:16", "1:1", "4:3", "3:4", "21:9"], "default": "16:9" },
+        "resolution": { "kind": "select", "label": "الدقة", "options": ["480p", "720p"], "default": "720p" },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 4, "max": 30, "default": 5 },
+        "generate_audio": { "kind": "toggle", "label": "صوت", "default": true }
+      }
+    },
+    "seedance-2-5-i2v": {
+      "label": "Seedance 2.5",
+      "type": "video",
+      "mode": "صورة ← فيديو",
+      "endpoint": "/bytedance/seedance-2.5/image-to-video",
+      "note": "بيحرّك صورتك · لحد ٣٠ ثانية · الأغلى",
+      "fields": {
+        "image_url": { "kind": "image", "label": "صورة البداية", "required": true },
+        "prompt": { "kind": "text", "label": "الأمر (الحركة)" },
+        "resolution": { "kind": "select", "label": "الدقة", "options": ["480p", "720p"], "default": "720p" },
+        "duration": { "kind": "range", "label": "المدة (ثانية)", "min": 4, "max": 30, "default": 5 },
+        "generate_audio": { "kind": "toggle", "label": "صوت", "default": true }
+      }
+    }
+  }
+}
